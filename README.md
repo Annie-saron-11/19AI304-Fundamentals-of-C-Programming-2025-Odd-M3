@@ -30,7 +30,37 @@ To formulate a C program to convert a decimal number into its binary equivalent 
 ### Step 8: 
    Stop
 # Program:
+```
+#include <stdio.h>
+
+int main() {
+    int num, rem, binary[32], i = 0, k;
+
+    printf("Enter a decimal number: ");
+    scanf("%d", &num);
+
+    int temp = num;  
+    while (num > 0) {
+        rem = num % 2;
+        binary[i] = rem;
+        i++;
+        num = num / 2;
+    }
+
+    printf("Binary equivalent of %d is: ", temp);
+    for (k = i - 1; k >= 0; k--) {
+        printf("%d", binary[k]);
+    }
+
+    printf("\n");
+    return 0;
+}
+```
 # Output:
+
+<img width="1598" height="723" alt="Screenshot 2025-11-22 122632" src="https://github.com/user-attachments/assets/b05f7ca3-aec8-4971-ac7f-c3c0a05c7261" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -69,7 +99,89 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9: 
   Stop
 # Program:
+```
+#include <stdio.h>
+
+int main() {
+    int i, j, k, m;
+    int pos[2][2];
+    int min, max;
+    
+    printf("Enter the order of the square matrix: ");
+    scanf("%d", &m);
+
+    int a[m][m];
+
+    // Read matrix elements
+    printf("Enter the elements of the matrix:\n");
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < m; j++) {
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    // Display matrix
+    printf("\nMatrix:\n");
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < m; j++) {
+            printf("%d ", a[i][j]);
+        }
+        printf("\n");
+    }
+
+    int found = 0;
+
+    // Find saddle point
+    for (i = 0; i < m; i++) {
+
+        min = a[i][0];
+        pos[0][0] = i;
+        pos[0][1] = 0;
+
+        // Minimum in the row
+        for (j = 1; j < m; j++) {
+            if (a[i][j] < min) {
+                min = a[i][j];
+                pos[0][0] = i;
+                pos[0][1] = j;
+            }
+        }
+
+        // Maximum in the column
+        j = pos[0][1];
+        max = a[0][j];
+        pos[1][0] = 0;
+        pos[1][1] = j;
+
+        for (k = 1; k < m; k++) {
+            if (a[k][j] > max) {
+                max = a[k][j];
+                pos[1][0] = k;
+                pos[1][1] = j;
+            }
+        }
+
+        // Check for saddle point
+        if (min == max && pos[0][0] == pos[1][0] && pos[0][1] == pos[1][1]) {
+            printf("\nSaddle point found: %d at position (%d, %d)\n",
+                   min, pos[0][0], pos[0][1]);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("\nNo saddle point exists in the matrix.\n");
+    }
+
+    return 0;
+}
+```
 # Output:
+
+<img width="1651" height="793" alt="image" src="https://github.com/user-attachments/assets/0f559dc9-a82f-4371-9342-6495155d99bd" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -103,7 +215,36 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10: 
   Stop
 # Program:
+```
+#include <stdio.h>
+
+int main() {
+    char s[100], d[100];
+    int i, j, len = 0;
+
+    printf("Enter a string: ");
+    scanf("%[^\n]s", s);
+
+    while (s[len] != '\0') {
+        len++;
+    }
+
+    j = 0;
+    for (i = len - 1; i >= 0; i--) {
+        d[j] = s[i];
+        j++;
+    }
+    d[j] = '\0';  
+    printf("Reversed string: %s", d);
+
+    return 0;
+}
+```
 # Output:
+
+<img width="1570" height="776" alt="image" src="https://github.com/user-attachments/assets/1d64b267-4a53-4f59-a114-db8dc3122fc5" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -137,7 +278,45 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8:
   Stop
 # Program:
+```
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    int visited[256] = {0};
+    int i, j, n, count;
+
+    printf("Enter a string: ");
+    scanf("%[^\n]", s);
+
+    n = strlen(s);
+
+    printf("\nCharacter Frequency:\n");
+
+    for (i = 0; i < n; i++) {
+        if (visited[(unsigned char)s[i]] == 0) {
+            count = 0;
+
+            for (j = 0; j < n; j++) {
+                if (s[i] == s[j]) {
+                    count++;
+                }
+            }
+
+            printf("%c : %d\n", s[i], count);
+            visited[(unsigned char)s[i]] = 1;
+        }
+    }
+
+    return 0;
+}
+```
 # Output:
+
+<img width="1639" height="782" alt="image" src="https://github.com/user-attachments/assets/647ebeba-75ca-4c57-8d98-ed4bdaf6bf0e" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -171,7 +350,55 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8: 
   Stop
 # Program:
+```
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[200], words[50][50];
+    int i, j, k = 0, row = 0;
+
+    printf("Enter a string: ");
+    scanf("%[^\n]s", str);
+
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] != ' ') {
+            words[row][k++] = str[i];
+        } else {
+            words[row][k] = '\0';
+            row++;
+            k = 0;
+        }
+    }
+    words[row][k] = '\0'; 
+    row++;
+
+    for (i = 0; i < row; i++) {
+        if (words[i][0] == '\0')
+            continue;
+
+        for (j = i + 1; j < row; j++) {
+            if (strcmp(words[i], words[j]) == 0) {
+                words[j][0] = '\0'; 
+            }
+        }
+    }
+
+    printf("\nString after removing duplicate words:\n");
+    for (i = 0; i < row; i++) {
+        if (words[i][0] != '\0') {
+            printf("%s ", words[i]);
+        }
+    }
+
+    return 0;
+}
+```
 # Output:
+
+<img width="1698" height="779" alt="image" src="https://github.com/user-attachments/assets/fd81a9a6-3b9e-47af-9c41-3d23850692ab" />
+
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
